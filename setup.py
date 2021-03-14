@@ -14,7 +14,7 @@ setup(
     url = "https://github.com/prateek2408/magicurl",
     packages=find_packages(),
     package_data={'magicurl': ['config/murl.yaml']},
-    install_requires=["pyyaml==5.4.1"],
+    install_requires=["flask==1.1.2"],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: Alpha",
