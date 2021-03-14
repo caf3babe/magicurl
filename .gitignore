@@ -1,3 +1,4 @@
 magicurl.egg-info
 __pycache__
+*.swp
 *.pyc
