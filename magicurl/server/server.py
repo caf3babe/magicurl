@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import base64
-from magicurl.utils.funcs import get_logger, check_url, extract_name_from_url
+from magicurl.utils.funcs import get_logger, check_url, extract_name_from_url, generate_hash
 from magicurl.utils.constants import INFO, SHORT_DOMAIN
 from magicurl.utils.gladiator import Gladiator
 from flask import Flask, request
@@ -50,10 +50,14 @@ class Server:
         chk =  check_url(request.form["URL"])
         if not chk:
             return "ERROR: URL provided is not valid \n"
-        name_ext = extract_name_from_url(request.form["URL"])
-        mem_map = Gladiator("/tmp")
-        mem_map.insert(name_ext, base64.b64encode(name_ext.encode("ascii")))
-        return f"Short URL= https://SHORT_DOMAIN/{generate_tiny_url(name_ext)}"
+        ename = extract_name_from_url(request.form["URL"])
+        cryptic_name = generate_hash(ename)
+
+        mem = Gladiator("/tmp")
+        if not mem.is_present(cryptic_name):
+            mem.insert(cryptic_name)
+
+        return f"Short URL= https://{SHORT_DOMAIN}/{cryptic_name} \n"
 
     def shorten_url(self):
         """

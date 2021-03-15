@@ -1,5 +1,6 @@
 import logging
 import re
+import hashlib
 
 URL_REGEX = ("((http|https)://)(www.)?" +
              "[a-zA-Z0-9@:%._\\+~#?&//=]" +
@@ -32,3 +33,10 @@ def check_url(url:str):
 def get_logger():
     logger = logging.getLogger("magicurl")
     return logger
+
+def generate_hash(name: str) -> str:
+    '''
+    Creates Hash of a given string
+    '''
+    result = hashlib.md5(bytes(name, "utf-8"))
+    return str(result.hexdigest())
