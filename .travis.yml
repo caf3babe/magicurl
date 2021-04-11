@@ -1,0 +1,7 @@
+language: python
+python: 3.8
+
+install:
+  - pip -r requirements.txt
+scripts:
+  - pytest --flake8
